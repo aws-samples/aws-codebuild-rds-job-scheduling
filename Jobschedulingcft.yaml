@@ -1,0 +1,222 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'test-Cloudformation for provisioning service required to schedule and execute RDS jobs using AWS CodeBuild'
+Parameters:
+  S3bucketName:
+    Type: String
+    Description: Enter S3bucket name where you uploaded invokepostgresqldbpy.zip 
+
+  EmailAddress:
+    Type: String
+    Description: Enter email address for the SNS notification 
+    Default: "replaceidhere@xyz.com"
+
+Resources:
+
+  # Postgresql RDS Instance
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: 20
+      DBInstanceClass: db.m4.large
+      DBName: "pgdb"
+      Engine: "postgres"
+      MasterUsername: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSInstanceSecret, ':SecretString:username}}' ]]
+      MasterUserPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref RDSInstanceSecret, ':SecretString:password}}' ]]
+      BackupRetentionPeriod: 0
+      DBInstanceIdentifier:  
+        Fn::Join:
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-dbinst'
+  
+  # AWS Secrets manager to store Database password
+  RDSInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name:
+        Fn::Join:
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-secret'
+      Description: 'This is the secret for my RDS instance'
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "master"}'
+        GenerateStringKey: 'password'
+        PasswordLength: 16
+        ExcludeCharacters: '"@/\'
+  SecretRDSInstanceAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId: !Ref RDSInstanceSecret
+      TargetId: !Ref DBInstance
+      TargetType: AWS::RDS::DBInstance
+
+  #Code Build
+  CodeBuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name:
+        Fn::Join:
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-codebuild'
+      Description: Batchjob codebuild project
+      ServiceRole: !GetAtt CodeBuildRole.Arn
+      Artifacts:
+        Type: no_artifacts
+      Environment:
+        Type: LINUX_CONTAINER
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:2.0
+        PrivilegedMode: true  
+        EnvironmentVariables:
+          - Name: secretname
+            Value: 
+              Fn::Join:
+              - ''
+              - - !Ref 'AWS::StackName'
+                - '-secret'
+          - Name: Region
+            Value: !Ref 'AWS::Region'     
+      Source:
+        Type: S3
+        Location: 
+            Fn::Join:
+            - ''
+            - - Ref: S3bucketName 
+              - '/invokepostgresqldbpy.zip'
+      TimeoutInMinutes: 10 
+  CodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Join:
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-codebuild-role'
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: ['sts:AssumeRole']
+          Effect: Allow
+          Principal:
+            Service: [codebuild.amazonaws.com]
+        Version: '2012-10-17'
+      Path: /
+      Policies:
+        - PolicyName: CodeBuildAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                - 'logs:*'
+                - 'ec2:CreateNetworkInterface'
+                - 'ec2:DescribeNetworkInterfaces'
+                - 'ec2:DeleteNetworkInterface'
+                - 'ec2:DescribeSubnets'
+                - 'ec2:DescribeSecurityGroups'
+                - 'ec2:DescribeDhcpOptions'
+                - 'ec2:DescribeVpcs'
+                - 'ec2:CreateNetworkInterfacePermission'
+                Effect: Allow
+                Resource: '*'
+
+  # CloudWatchEvents Code build Rold            
+  CloudWatchEventsCodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Join:
+        - ''
+        - - !Ref 'AWS::StackName'
+          - '-batch-processing-job-cw-events-codebuild-role'
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service:
+                - events.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+      - PolicyName: aws-events-code-build
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+          - Effect: Allow
+            Action:
+              - 'codebuild:StartBuild'
+            Resource: !GetAtt CodeBuildProject.Arn    
+
+  # CloudWatch Event Rule for codecommit build trigger
+  CloudWatchEventCodeBuildEventRule: 
+    Type: AWS::Events::Rule
+    Properties: 
+      Name: !Join
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - 'codebuild-rule'
+      Description: "This event rule triggers the codebuild project"
+      ScheduleExpression: 'cron(0 10 * * ? *)'                  
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: {'Fn::GetAtt': [CodeBuildProject, Arn]}
+          Id: cloudwatch-codebuild-eventrules  
+          RoleArn: !GetAtt CloudWatchEventsCodeBuildRole.Arn
+  rSnsTopicDemo:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: rSnsTopicDemo
+      Subscription:
+        - Protocol: email
+          Endpoint: !Ref EmailAddress
+
+  rCloudWatchEventRuleDemo:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Delete when finished
+      EventPattern:
+        source:
+          - aws.codebuild
+        detail-type:
+          - CodeBuild Build State Change
+        detail:
+          build-status:
+            - IN_PROGRESS
+            - SUCCEEDED
+            - FAILED
+            - STOPPED
+          project-name:
+            - Fn::Join:
+              - ''
+              - - !Ref 'AWS::StackName'
+                - '-codebuild'
+      Targets:
+        - Arn: !Ref rSnsTopicDemo
+          Id: CodeBuildStateChangeDemo
+  SNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    DependsOn: rSnsTopicDemo
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Sid: SNSTopicPolicy
+          Effect: Allow
+          Principal:
+            Service: events.amazonaws.com
+          Action:
+          - sns:Publish
+          Resource: !Ref rSnsTopicDemo
+      Topics:
+        - !Ref rSnsTopicDemo
+
+
+Outputs:
+  CodeBuildProjectArn:
+    Value:
+      Ref: CodeBuildProject
