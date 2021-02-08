@@ -2,7 +2,7 @@
 # How to use AWS CodeBuild and Amazon CloudWatch rules to schedule jobs in Amazon RDS PostgreSQL
 
 ## Introduction
-When you want to migrate on-premises database workloads with jobs to AWS, you need to select right AWS services to schedule the jobs as you traditionally schedule scripts to run against databases using the system cron on the host where the database is running. As a managed database service, Amazon Relational Database Service (RDS) does not provide access to the underlying infrastructure, so if you migrate such workloads from on premises, you must move these jobs. This post provides an alternate way to schedule and run jobs using AWS CodeBuild.
+When you want to migrate on-premises database workloads with jobs to AWS, you need to select right AWS services to schedule the jobs as you traditionally schedule scripts to run against databases using the system cron on the host where the database is running. As a managed database service, Amazon Relational Database Service (RDS) does not provide access to the underlying infrastructure, so if you migrate such workloads from on premises, you must move these jobs. The latest feature in RDS PostgreSQL versions 12.5 and higher enables you to schedule PostgreSQL commands within your database. However, if you have older RDS PostgreSQL version and need a flexibility to handle multiple batch jobs with an option to customize the notification then this post provides an alternate way to schedule and run jobs using AWS CodeBuild and Amazon CloudWatch rules.
 
 AWS CodeBuild is a managed service that managed continuous integration service that compiles source code, runs tests, and produces software packages that are ready to deploy. With CodeBuild, you don’t need to provision, manage, and scale your own build servers. CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue.
 
@@ -12,7 +12,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Cl
 
 Please follow the blog post to schedule jobs and test in you account.
 
-![Alt text](Scheduling%20and%20running%20Amazon%20RDS%20jobs%20with%20AWS%20Batch%20and%20Amazon%20CloudWatch%20rules.png?raw=true "Title")
+![Alt text](Architecture-scheduling Amazon RDS jobs with AWS CodeBuild and Amazon CloudWatch rules.png?raw=true "Title")
 
 
 ## Prerequisites
