@@ -13,7 +13,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Cl
 Please follow the blog post to schedule jobs and test in you account.
 
 ![Alt text]
-(Architecture-scheduling Amazon RDS jobs with AWS CodeBuild and Amazon CloudWatch rules.png?raw=true "Title")
+(Architecture-scheduling%20Amazon%20RDS%20jobs%20with%20AWS%20CodeBuild%20and%20Amazon%20CloudWatch%20rules.png?raw=true "Title")
 
 
 ## Prerequisites
