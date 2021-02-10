@@ -7,12 +7,13 @@ When you want to migrate on-premises database workloads with jobs to AWS, you ne
 AWS CodeBuild is a managed service that managed continuous integration service that compiles source code, runs tests, and produces software packages that are ready to deploy. With CodeBuild, you don’t need to provision, manage, and scale your own build servers. CodeBuild scales continuously and processes multiple builds concurrently, so your builds are not left waiting in a queue.
 
 Why AWS CodeBuild?
-There are different managed services  like Lambda , AWS batch, ECS , Stepfunctions in AWS that can be used to run jobs. As your data grows, jobs might take more than 15mins to run , hence Lambda may not fit as it has execution time limit of 15mins. You need to package your code as a Docker container if you want to use AWS batch or ECS. AWS CodeBuild is a good option if your job is taking more than 15 mins and you can’t (or don’t want to) package your code as a Docker container.
+There are different managed services  like AWS Lambda , AWS batch, Amazon Elastic Container Service (Amazon ECS), AWS Step Functions in AWS that can be used to run jobs. As your data grows, jobs might take more than 15mins to run , hence Lambda may not fit as it has execution time limit of 15mins. You need to package your code as a Docker container if you want to use AWS batch or Amazon ECS. AWS CodeBuild is a good option if your job is taking more than 15 mins and you can’t (or don’t want to) package your code as a Docker container.
 This post demonstrates how to use the combination of AWS CodeBuild and Amazon CloudWatch rules to dynamically provision resources and schedule and run functions or stored procedures on PostgreSQL database. 
+ 
 
 Please follow the blog post to schedule jobs and test in you account.
 
-![Alt text](Architecture-scheduling Amazon RDS jobs with AWS CodeBuild and Amazon CloudWatch rules.png?raw=true "Title")
+![Alt Text](Architecture-scheduling%20Amazon%20RDS%20jobs%20with%20AWS%20CodeBuild%20and%20Amazon%20CloudWatch%20rules.png?raw=true  "Title")
 
 
 ## Prerequisites
@@ -43,7 +44,7 @@ Please follow the blog post to schedule jobs and test in you account.
 ## Clone source code from AWS samples
     Download the files required to set up the environment. See the following code:
 
-    $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling (Creating this repo is in progress)
+    $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
     $ cd aws-codebuild-rds-job-scheduling
     CreateSampleDataAndFunct.sql has a code to create sample tables and functions.
     Jobschedulingcft.yaml defines all the AWS resources required for this solution.
@@ -64,17 +65,17 @@ Please follow the blog post to schedule jobs and test in you account.
 
     The template creates the following:
 
-    •	CodeBuild project
-    •	PostgreSQL instance
-    •	AWS Secrets Manager with PostgreSQL database login credentials
-    •	CloudWatch rule to run the CodeBuild project based on the schedule
-    •	Roles with appropriate permission
-    •	SNS Topic to send notifications with the status of Job
+        •	CodeBuild project
+        •	PostgreSQL instance
+        •	AWS Secrets Manager with PostgreSQL database login credentials
+        •	CloudWatch rule to run the CodeBuild project based on the schedule
+        •	Roles with appropriate permission
+        •	SNS Topic to send notifications with the status of Job
 
 
 ## Testing
 
-    Please follow the blog post to schedule and the test you job execution.
+    Please follow the blog post to schedule and the test your job execution.
 
 
 ## Code Cleanup
