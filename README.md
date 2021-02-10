@@ -43,7 +43,7 @@ Please follow the blog post to schedule jobs and test in you account.
 ## Clone source code from AWS samples
     Download the files required to set up the environment. See the following code:
 
-    $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling (Creating this repo is in progress)
+    $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
     $ cd aws-codebuild-rds-job-scheduling
     CreateSampleDataAndFunct.sql has a code to create sample tables and functions.
     Jobschedulingcft.yaml defines all the AWS resources required for this solution.
@@ -64,17 +64,17 @@ Please follow the blog post to schedule jobs and test in you account.
 
     The template creates the following:
 
-    •	CodeBuild project
-    •	PostgreSQL instance
-    •	AWS Secrets Manager with PostgreSQL database login credentials
-    •	CloudWatch rule to run the CodeBuild project based on the schedule
-    •	Roles with appropriate permission
-    •	SNS Topic to send notifications with the status of Job
+        •	CodeBuild project
+        •	PostgreSQL instance
+        •	AWS Secrets Manager with PostgreSQL database login credentials
+        •	CloudWatch rule to run the CodeBuild project based on the schedule
+        •	Roles with appropriate permission
+        •	SNS Topic to send notifications with the status of Job
 
 
 ## Testing
 
-    Please follow the blog post to schedule and the test you job execution.
+    Please follow the blog post to schedule and the test your job execution.
 
 
 ## Code Cleanup
