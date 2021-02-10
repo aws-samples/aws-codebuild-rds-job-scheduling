@@ -82,7 +82,7 @@ Please follow the blog post to schedule jobs and test in you account.
 
 On the AWS Management Console, navigate to your CloudFormation stack codebuildjob and delete it.
 Alternatively, enter the following code in AWS CLI:
-$ aws cloudformation delete-stack --stack-name codebuildjob
+    $ aws cloudformation delete-stack --stack-name codebuildjob
 
 
 ## Security
