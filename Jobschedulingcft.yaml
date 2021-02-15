@@ -1,6 +1,6 @@
 
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'test-Cloudformation for provisioning service required to schedule and execute RDS jobs using AWS CodeBuild'
+Description: 'Cloudformation for provisioning service required to schedule and execute RDS jobs using AWS CodeBuild'
 Parameters:
   S3bucketName:
     Type: String
@@ -97,6 +97,7 @@ Resources:
           - '-codebuild-role'
       ManagedPolicyArns:
       - arn:aws:iam::aws:policy/SecretsManagerReadWrite
+      - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess 
       AssumeRolePolicyDocument:
         Statement:
         - Action: ['sts:AssumeRole']
@@ -123,15 +124,15 @@ Resources:
                 Effect: Allow
                 Resource: '*'
 
-  # CloudWatchEvents Code build Rold            
-  CloudWatchEventsCodeBuildRole:
+  # EventBridge role for Code build Rle           
+  EventBridgeCodeBuildRole:
     Type: AWS::IAM::Role
     Properties:
       RoleName:
         Fn::Join:
         - ''
         - - !Ref 'AWS::StackName'
-          - '-batch-processing-job-cw-events-codebuild-role'
+          - '-cw-events-codebuild-role'
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -151,7 +152,7 @@ Resources:
               - 'codebuild:StartBuild'
             Resource: !GetAtt CodeBuildProject.Arn    
 
-  # CloudWatch Event Rule for codecommit build trigger
+  # EventBridge Rule for codecommit build trigger
   CloudWatchEventCodeBuildEventRule: 
     Type: AWS::Events::Rule
     Properties: 
@@ -166,7 +167,7 @@ Resources:
         - 
           Arn: {'Fn::GetAtt': [CodeBuildProject, Arn]}
           Id: cloudwatch-codebuild-eventrules  
-          RoleArn: !GetAtt CloudWatchEventsCodeBuildRole.Arn
+          RoleArn: !GetAtt EventBridgeCodeBuildRole.Arn
   rSnsTopicDemo:
     Type: AWS::SNS::Topic
     Properties:
@@ -175,7 +176,7 @@ Resources:
         - Protocol: email
           Endpoint: !Ref EmailAddress
 
-  rCloudWatchEventRuleDemo:
+  rEventBridgeEventRuleDemo:
     Type: AWS::Events::Rule
     Properties:
       Description: Delete when finished

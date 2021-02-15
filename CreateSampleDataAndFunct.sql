@@ -1,7 +1,7 @@
 
 --drop table emp;
 --drop table dept;
---drop function low_high_salaries;
+--drop function get_max_min_salary;
 
 create table dept(
   deptno     integer,
@@ -139,4 +139,4 @@ LANGUAGE plpgsql;
 
 SELECT * FROM emp;
 SELECT * FROM dept;
-select * from low_high_salaries(20);
+select * from get_max_min_salary(20);
