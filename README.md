@@ -1,5 +1,5 @@
 
-# How to use AWS CodeBuild and Amazon CloudWatch rules to schedule jobs in Amazon RDS PostgreSQL
+# How to use AWS CodeBuild and Amazon EventBridge rules to schedule jobs in Amazon RDS PostgreSQL
 
 ## Introduction
 When you want to migrate on-premises database workloads with jobs to AWS, you need to select right AWS services to schedule the jobs as you traditionally schedule scripts to run against databases using the system cron on the host where the database is running. As a managed database service, Amazon Relational Database Service (RDS) does not provide access to the underlying infrastructure, so if you migrate such workloads from on premises, you must move these jobs. The latest feature in RDS PostgreSQL versions 12.5 and higher enables you to schedule PostgreSQL commands within your database. However, if you have older RDS PostgreSQL version and need a flexibility to handle multiple batch jobs with an option to customize the notification then this post provides an alternate way to schedule and run jobs using AWS CodeBuild and Amazon CloudWatch rules.
