@@ -1,4 +1,3 @@
-
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Cloudformation for provisioning service required to schedule and execute RDS jobs using AWS CodeBuild'
 Parameters:
@@ -68,7 +67,7 @@ Resources:
       Environment:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
-        Image: aws/codebuild/standard:2.0
+        Image: aws/codebuild/standard:3.0
         PrivilegedMode: true  
         EnvironmentVariables:
           - Name: secretname
