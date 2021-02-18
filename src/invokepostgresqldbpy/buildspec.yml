@@ -1,0 +1,13 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo Entered the install phase...
+      - pip install boto3
+      - pip install psycopg2-binary
+  build:
+    commands:
+      - echo build phase starts here..
+      - python3 invokepostgresqlproc.py
