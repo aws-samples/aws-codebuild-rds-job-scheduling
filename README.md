@@ -28,23 +28,23 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 ## Prerequisites
     Before you begin, you'll need to complete the following prerequisites:
 
-    •	Create or have access to an [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup).
-    •	Ensure [git](https://git-scm.com/downloads) is installed on your machine.
-    •	Set up and configure [AWS Command Line](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+    •	Create or have access to an [AWS account!](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup).
+    •	Ensure [git!](https://git-scm.com/downloads) is installed on your machine.
+    •	Set up and configure [AWS Command Line!](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI!](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
     •	SQL client to connect to RDS database. In this post I used Dbeaver.
-    •	Email address to receive [SNS](https://aws.amazon.com/sns) notifications.
+    •	Email address to receive [SNS!](https://aws.amazon.com/sns) notifications.
 
 
 
 ## Walkthrough
     
-    1.	Clone the project from the AWS code samples repository
-    2.	Deploy the CloudFormation template to create the required services
-    3.	Go to the AWS CloudFormation console and make sure that the resources are created
-    4.  Upload source code to S3 bucket 
-    5.	Run database scripts and create the required tables and functions
-    6.	Execute CodeBuild project manually
-    7.	Verify if batch job is running successfully based on the EventBridge rule
+    .	Clone the project from the AWS code samples repository
+    .	Deploy the CloudFormation template to create the required services
+    .	Go to the AWS CloudFormation console and make sure that the resources are created
+    .   Upload source code to S3 bucket 
+    .	Run database scripts and create the required tables and functions
+    .	Execute CodeBuild project manually
+    .	Verify if batch job is running successfully based on the EventBridge rule
 
 
 
