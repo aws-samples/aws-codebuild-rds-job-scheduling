@@ -91,10 +91,10 @@ Before you begin, you'll need to complete the following prerequisites:
 
 ## Code Cleanup
 To avoid incurring future changes, clean up the resources you created.
-1.	Delete S3 objects
-$ aws s3 rm s3://{your s3 bucket name} --recursive
-2.	Delete the CloudFormation stack
-$ aws cloudformation delete-stack --stack-name codebuildjob
+    1.	Delete S3 objects
+        $ aws s3 rm s3://{your s3 bucket name} --recursive
+    2.	Delete the CloudFormation stack
+        $ aws cloudformation delete-stack --stack-name codebuildjob
 
 Alternatively, [delete the stack on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html). You can refer [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-delete-stack-fails) if the stack deletion fails.
 
