@@ -38,6 +38,7 @@ Before you begin, you'll need to complete the following prerequisites:
 
 ## Walkthrough
     
+
   * Clone the project from the AWS code samples repository
   * Deploy the CloudFormation template to create the required services
   * Go to the AWS CloudFormation console and make sure that the resources are created
@@ -45,6 +46,7 @@ Before you begin, you'll need to complete the following prerequisites:
   * Run database scripts and create the required tables and functions
   * Execute CodeBuild project manually
   * Verify if batch job is running successfully based on the EventBridge rule
+
 
 
 
@@ -60,7 +62,9 @@ Before you begin, you'll need to complete the following prerequisites:
 
 ## Deploy the AWS CloudFormation template
     To deploy the CloudFormation template, complete the following steps:
+
         1.	Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
+
         2.	Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
         $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
 
