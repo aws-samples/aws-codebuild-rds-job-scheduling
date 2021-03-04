@@ -26,13 +26,13 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 
 
 ## Prerequisites
-    Before you begin, you'll need to complete the following prerequisites:
+   Before you begin, you'll need to complete the following prerequisites:
 
-    •	Create or have access to an [AWS account!](https://google.com)
-    •	Ensure [git!](https://git-scm.com/downloads) is installed on your machine.
-    •	Set up and configure [AWS Command Line!](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI!](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
-    •	SQL client to connect to RDS database. In this post I used [Dbeaver!](https://dbeaver.io/ ).
-    •	Email address to receive [SNS!](https://aws.amazon.com/sns) notifications.
+    •	Create or have access to an [AWS account](https://google.com)
+    •	Ensure [git](https://git-scm.com/downloads) is installed on your machine.
+    •	Set up and configure [AWS Command Line](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+    •	SQL client to connect to RDS database. In this post I used [Dbeaver](https://dbeaver.io/ ).
+    •	Email address to receive [SNS](https://aws.amazon.com/sns) notifications.
 
 
 
@@ -60,7 +60,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 
 ## Deploy the AWS CloudFormation template
     To deploy the CloudFormation template, complete the following steps:
-        1.	1.	Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
+        	1.	Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
         2.	Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
         $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
 
