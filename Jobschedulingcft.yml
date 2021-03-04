@@ -1,10 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Cloudformation for provisioning service required to schedule and execute RDS jobs using AWS CodeBuild'
 Parameters:
-  S3bucketName:
-    Type: String
-    Description: Enter S3bucket name where you uploaded invokepostgresqldbpy.zip 
-
+  
   EmailAddress:
     Type: String
     Description: Enter email address for the SNS notification 
@@ -50,7 +47,16 @@ Resources:
       SecretId: !Ref RDSInstanceSecret
       TargetId: !Ref DBInstance
       TargetType: AWS::RDS::DBInstance
-
+  
+  Mys3bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      
   #Code Build
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
@@ -83,7 +89,7 @@ Resources:
         Location: 
             Fn::Join:
             - ''
-            - - Ref: S3bucketName 
+            - - !Ref  Mys3bucket 
               - '/invokepostgresqldbpy.zip'
       TimeoutInMinutes: 10 
   CodeBuildRole:
@@ -220,3 +226,6 @@ Outputs:
   CodeBuildProjectArn:
     Value:
       Ref: CodeBuildProject
+  s3bucket:
+    Value:
+      Ref: Mys3bucket

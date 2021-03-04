@@ -26,45 +26,41 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 
 
 ## Prerequisites
-    Before you get started, complete the following prerequisites:
+    Before you begin, you'll need to complete the following prerequisites:
 
-    •	AWS account.
-    •	Install git on your machine.
-    •	Set up and configure AWS CLI. For instructions, see Installing the AWS CLI.
-    •	SQL client to connect to RDS database. In this post I used Dbeaver
-    •	S3 bucket to store the source code
-    •	Email address to receive SNS notifications.
+    •	Create or have access to an [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup).
+    •	Ensure [git](https://git-scm.com/downloads) is installed on your machine.
+    •	Set up and configure [AWS Command Line](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
+    •	SQL client to connect to RDS database. In this post I used Dbeaver.
+    •	Email address to receive [SNS](https://aws.amazon.com/sns) notifications.
+
 
 
 ## Walkthrough
     
     1.	Clone the project from the AWS code samples repository
-    2.	Upload source code to S3 bucket and update S3 bucket parameter name in CloudFormation template
-    3.	Deploy the CloudFormation template to create the required services
-    4.	Go to the AWS CloudFormation console and make sure that the resources are created
+    2.	Deploy the CloudFormation template to create the required services
+    3.	Go to the AWS CloudFormation console and make sure that the resources are created
+    4.  Upload source code to S3 bucket 
     5.	Run database scripts and create the required tables and functions
     6.	Execute CodeBuild project manually
-    7.	Verify if batch job is running successfully based on the CloudWatch rule
+    7.	Verify if batch job is running successfully based on the EventBridge rule
 
 
 
 ## Clone source code from AWS samples
-    Download the files required to set up the environment. See the following code:
+   Download the files required to set up the environment. Refer to the following commands and files:
 
     $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
     $ cd aws-codebuild-rds-job-scheduling
-    createFunct.sql - Has a code to create sample SQL function.
+    CreateFunct.sql - Has a code to create sample SQL function. AWS CodeBuild project is configured to execute this SQL function.
     Jobschedulingcft.yml - Defines all the AWS resources required for this solution.
-    invokepostgresqldbpy.zip - Contains buildspec.yml and a python script.
-
-
-## Upload source code to S3 bucket
-    Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucket. This package contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes invokepostgresqlproc.py which has a code to connect to PostgreSQL database and execute the SQL function.
+    invokepostgresqldbpy.zip - Contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes the python script which has a code to connect to PostgreSQL database and execute the SQL function
 
 
 ## Deploy the AWS CloudFormation template
     To deploy the CloudFormation template, complete the following steps:
-        1.	Update the S3bucket name where source code is uploaded and email address parameters in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
+        1.	1.	Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
         2.	Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
         $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
 
@@ -74,12 +70,18 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
         "StackId": "arn:aws:cloudformation:us-east-1:xxxxxxxx:stack/codebuildjob/aade45d0-0415-11eb-9c12-0ed4f058f52d"
          }
     The template will create the following resources:
-        •	CodeBuild project
-        •	PostgreSQL instance
-        •	AWS Secrets Manager with PostgreSQL database login credentials
-        •	EventBridge rule to trigger the job every day at 10 AM (UTC)
-        •	IAM Roles for CodeBuild, EventBridge and SNS with appropriate permissions
-        •	SNS Topic to send notifications with the status of the Job
+    •	AWS CodeBuild project
+    •	A PostgreSQL instance
+    •	S3 bucket
+    •	AWS Secrets Manager with PostgreSQL database login credentials
+    •	EventBridge rule to trigger the job every day at 10 AM (UTC)
+    •	IAM Service Roles for CodeBuild, EventBridge and SNS 
+    •	SNS Topic to send notifications to the provided email address with the status of the executed Job
+
+## Upload source code to S3 bucket
+    Go to the AWS CloudFormation console and note down the S3 bucket name in Outputs section of your stack.
+    Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucket using CLI command 
+    $ aws s3 cp ./src/invokepostgresqldbpy.zip s3://{your S3 bucket name}
 
 
 
@@ -87,6 +89,8 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
     On the AWS Management Console, navigate to your CloudFormation stack codebuildjob and delete it.
     Alternatively, enter the following code in AWS CLI:
     $ aws cloudformation delete-stack --stack-name codebuildjob
+
+    You can refer [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-delete-stack-fails) if the stack deletion fails.
 
 
 ## Security
