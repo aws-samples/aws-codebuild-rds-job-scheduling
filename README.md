@@ -31,7 +31,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
     •	Create or have access to an [AWS account!](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup).
     •	Ensure [git!](https://git-scm.com/downloads) is installed on your machine.
     •	Set up and configure [AWS Command Line!](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI!](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
-    •	SQL client to connect to RDS database. In this post I used Dbeaver.
+    •	SQL client to connect to RDS database. In this post I used [Dbeaver!](https://dbeaver.io/ ).
     •	Email address to receive [SNS!](https://aws.amazon.com/sns) notifications.
 
 
