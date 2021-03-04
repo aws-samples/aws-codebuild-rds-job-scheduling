@@ -26,7 +26,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 
 
 ## Prerequisites
-   Before you begin, you'll need to complete the following prerequisites:
+Before you begin, you'll need to complete the following prerequisites:
 
     •	Create or have access to an [AWS account](https://google.com)
     •	Ensure [git](https://git-scm.com/downloads) is installed on your machine.
@@ -41,7 +41,7 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
     .	Clone the project from the AWS code samples repository
     .	Deploy the CloudFormation template to create the required services
     .	Go to the AWS CloudFormation console and make sure that the resources are created
-    .   Upload source code to S3 bucket 
+    . Upload source code to S3 bucket 
     .	Run database scripts and create the required tables and functions
     .	Execute CodeBuild project manually
     .	Verify if batch job is running successfully based on the EventBridge rule
