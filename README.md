@@ -61,7 +61,7 @@ Download the files required to set up the environment. Refer to the following co
 
 **Jobschedulingcft.yml** - Defines all the AWS resources required for this solution.
 
-**invokepostgresqldbpy.zi** - Contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes the python script which has a code to connect to PostgreSQL database and execute the SQL function
+**invokepostgresqldbpy.zip** - Contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes the python script which has a code to connect to PostgreSQL database and execute the SQL function.
 
 
 ## Deploy the AWS CloudFormation template
