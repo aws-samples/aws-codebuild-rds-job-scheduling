@@ -63,24 +63,24 @@ Before you begin, you'll need to complete the following prerequisites:
 ## Deploy the AWS CloudFormation template
     To deploy the CloudFormation template, complete the following steps:
 
-        1.	Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
+   * Update email address parameter in the CloudFormation template Jobschedulingcft.yml. The email address will be used by Amazon SNS to send a notification about the job status
 
-        2.	Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
-        $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
+   * Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
+        > $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
 
-        Output:
+    Output:
 
         {
         "StackId": "arn:aws:cloudformation:us-east-1:xxxxxxxx:stack/codebuildjob/aade45d0-0415-11eb-9c12-0ed4f058f52d"
          }
     The template will create the following resources:
-    •	AWS CodeBuild project
-    •	A PostgreSQL instance
-    •	S3 bucket
-    •	AWS Secrets Manager with PostgreSQL database login credentials
-    •	EventBridge rule to trigger the job every day at 10 AM (UTC)
-    •	IAM Service Roles for CodeBuild, EventBridge and SNS 
-    •	SNS Topic to send notifications to the provided email address with the status of the executed Job
+    * AWS CodeBuild project
+    * A PostgreSQL instance
+    * S3 bucket
+    * AWS Secrets Manager with PostgreSQL database login credentials
+    * EventBridge rule to trigger the job every day at 10 AM (UTC)
+    * IAM Service Roles for CodeBuild, EventBridge and SNS 
+    * SNS Topic to send notifications to the provided email address with the status of the executed Job
 
 ## Upload source code to S3 bucket
 Go to the AWS CloudFormation console and note down the S3 bucket name in Outputs section of your stack.
