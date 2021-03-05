@@ -83,13 +83,14 @@ Before you begin, you'll need to complete the following prerequisites:
     •	SNS Topic to send notifications to the provided email address with the status of the executed Job
 
 ## Upload source code to S3 bucket
-    Go to the AWS CloudFormation console and note down the S3 bucket name in Outputs section of your stack.
-    Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucket using CLI command 
+Go to the AWS CloudFormation console and note down the S3 bucket name in Outputs section of your stack.
+Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucket using CLI command:
     $ aws s3 cp ./src/invokepostgresqldbpy.zip s3://{your S3 bucket name}
 
 
 
 ## Code Cleanup
+
 To avoid incurring future changes, clean up the resources you created.
    * Delete S3 objects: 
         $ aws s3 rm s3://{your s3 bucket name} --recursive
@@ -102,9 +103,9 @@ Alternatively, [delete the stack on the AWS CloudFormation console](https://docs
 
 ## Security
 
-    See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
 
 
 ## License
 
-    This library is licensed under the MIT-0 License. See the LICENSE file.
+This library is licensed under the MIT-0 License. See the LICENSE file.
