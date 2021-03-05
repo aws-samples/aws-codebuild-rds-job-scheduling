@@ -68,9 +68,11 @@ To deploy the CloudFormation template, complete the following steps:
 
    * Run the CloudFormation template to provision the required services. See the following command for macOS or Linux:
         > $ aws cloudformation create-stack --stack-name codebuildjob --template-body file://Jobschedulingcft.yml --capabilities CAPABILITY_NAMED_IAM --region us-east-1
+        
         > {
         "StackId": "arn:aws:cloudformation:us-east-1:xxxxxxxx:stack/codebuildjob/aade45d0-0415-11eb-9c12-0ed4f058f52d"
          }
+
 The template will create the following resources:
 
    * AWS CodeBuild project
