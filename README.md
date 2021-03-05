@@ -90,7 +90,7 @@ The template will create the following resources:
 ## Upload source code to S3 bucket
 Go to the AWS CloudFormation console and note down the S3 bucket name in Outputs section of your stack.
 Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucket using CLI command:
-    $ aws s3 cp ./src/invokepostgresqldbpy.zip s3://{your S3 bucket name}
+ > $ aws s3 cp ./src/invokepostgresqldbpy.zip s3://{*your S3 bucket name*}
 
 
 
