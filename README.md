@@ -29,9 +29,9 @@ This post demonstrates how to use the combination of AWS CodeBuild and Amazon Ev
 Before you begin, you'll need to complete the following prerequisites:
     
    * Create or have access to an [AWS account](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fportal.aws.amazon.com%2Fbilling%2Fsignup%2Fresume&client_id=signup).
-   * Ensure [git!](https://git-scm.com/downloads) is installed on your machine.
+   * Ensure [git](https://git-scm.com/downloads) is installed on your machine.
    * Set up and configure [AWS Command Line](http://aws.amazon.com/cli). For instructions, see [Installing the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).
-   * SQL client to connect to RDS database. In this post I used [Dbeaver!](https://dbeaver.io/ ). 
+   * SQL client to connect to RDS database. In this post I used [Dbeaver](https://dbeaver.io/ ). 
    * Email address to receive [SNS](https://aws.amazon.com/sns) notifications.
 
 
@@ -98,9 +98,9 @@ Upload aws-codebuild-rds-job-scheduling/src/invokepostgresqldbpy.zip to S3 bucke
 
 To avoid incurring future changes, clean up the resources you created.
    * Delete S3 objects: 
-        $ aws s3 rm s3://{your s3 bucket name} --recursive
+     > $ aws s3 rm s3://{*your s3 bucket name*} --recursive
    * Delete the CloudFormation stack: 
-        $ aws cloudformation delete-stack --stack-name codebuildjob
+     > $ aws cloudformation delete-stack --stack-name codebuildjob
 
 Alternatively, [delete the stack on the AWS CloudFormation console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-delete-stack.html). You can refer [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-delete-stack-fails) if the stack deletion fails.
 
