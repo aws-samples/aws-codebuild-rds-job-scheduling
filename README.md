@@ -51,13 +51,15 @@ Before you begin, you'll need to complete the following prerequisites:
 
 
 ## Clone source code from AWS samples
-   Download the files required to set up the environment. Refer to the following commands and files:
+Download the files required to set up the environment. Refer to the following commands and files:
 
-    $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
-    $ cd aws-codebuild-rds-job-scheduling
-    CreateFunct.sql - Has a code to create sample SQL function. AWS CodeBuild project is configured to execute this SQL function.
-    Jobschedulingcft.yml - Defines all the AWS resources required for this solution.
-    invokepostgresqldbpy.zip - Contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes the python script which has a code to connect to PostgreSQL database and execute the SQL function
+   > $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
+
+   > $ cd aws-codebuild-rds-job-scheduling
+
+CreateFunct.sql - Has a code to create sample SQL function. AWS CodeBuild project is configured to execute this SQL function.
+Jobschedulingcft.yml - Defines all the AWS resources required for this solution.
+invokepostgresqldbpy.zip - Contains buildspec.yml and a python script. CodeBuild installs the libraries such as boto3 , psycopg2 defined in the buildspec.yml and invokes the python script which has a code to connect to PostgreSQL database and execute the SQL function
 
 
 ## Deploy the AWS CloudFormation template
