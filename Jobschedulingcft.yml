@@ -47,7 +47,7 @@ Resources:
       SecretId: !Ref RDSInstanceSecret
       TargetId: !Ref DBInstance
       TargetType: AWS::RDS::DBInstance
-  
+  # S3 bucket to store the code
   Mys3bucket:
     Type: AWS::S3::Bucket
     Properties:
