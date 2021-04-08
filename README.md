@@ -57,11 +57,12 @@ Download the files required to set up the environment. See the following code:
    > $ cd aws-codebuild-rds-job-scheduling
    
 You use the following files:
-**CreateFunct.sql** - Has a code to create a sample SQL function. The CodeBuild project is configured to run this SQL function.
 
-**Jobschedulingcft.yml** - Defines all the AWS resources required for this solution.
+ **CreateFunct.sql** - Has a code to create a sample SQL function. The CodeBuild project is configured to run this SQL function.
 
-**invokepostgresqldbpy.zip** - Contains buildspec.yml and a Python script. CodeBuild installs the libraries such as boto3 and psycopg2 defined in the buildspec.yml and invokes the Python script, which has a code to connect to PostgreSQL database and run the SQL function.
+ **Jobschedulingcft.yml** - Defines all the AWS resources required for this solution.
+
+ **invokepostgresqldbpy.zip** - Contains buildspec.yml and a Python script. CodeBuild installs the libraries such as boto3 and psycopg2 defined in the buildspec.yml and invokes the Python script, which has a code to connect to PostgreSQL database and run the SQL function.
 
 
 ## Deploying the CloudFormation template
