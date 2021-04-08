@@ -55,6 +55,7 @@ Download the files required to set up the environment. See the following code:
    > $ git clone https://github.com/aws-samples/aws-codebuild-rds-job-scheduling
 
    > $ cd aws-codebuild-rds-job-scheduling
+   
 You use the following files:
 **CreateFunct.sql** - Has a code to create a sample SQL function. The CodeBuild project is configured to run this SQL function.
 
