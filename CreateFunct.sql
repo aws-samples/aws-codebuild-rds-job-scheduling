@@ -5,8 +5,8 @@ RETURNS text
 AS
 $$
  SELECT CASE
-        WHEN $3 THEN UPPER($1 || ' ' || $2)
-        ELSE LOWER($1 || ' ' || $2)
+        WHEN uppercase THEN UPPER(a || ' ' || b)
+        ELSE LOWER(a || ' ' || b)
         END;
 $$
 LANGUAGE SQL IMMUTABLE STRICT;
